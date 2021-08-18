@@ -2,7 +2,7 @@ import GoodsButtons from './GoodsButtons/GoodsButtons';
 import GoodsAmount from './GoodsAmount/GoodsAmount';
 import { DetailGoods } from '@src/types/Goods';
 import React, { useState, useCallback, useEffect } from 'react';
-import { deleteWish, postWish } from '@src/apis/wishApi';
+// import { deleteWish, postWish } from '@src/apis/wishAPI';
 import { getGoodsStockCount } from '@src/apis/goodsAPI';
 
 interface Props {
@@ -16,14 +16,23 @@ const GoodsInteractive: React.FC<Props> = ({
   const [isOver, setIsOver] = useState(false);
   const [amount, setAmount] = useState(0);
 
-  const handleToWish = useCallback(async () => {}, []);
+  const handleToWish = useCallback(async () => {
+    //   const result = await (isWished ? deleteWish(id) : postWish(id));
+    //   if (result) setIsWished(!isWished);
+  }, [isWished]);
   const handleAddToCart = useCallback(() => {
-    console.log('장바구니 추가 API', 'goods id:', id);
-  }, []);
-  const handleAddToOrder = useCallback(() => {
-    // TODO: 상품 관련 상태 저장 후
-    console.log('결제화면으로 이동', 'goods id:', id);
-  }, []);
+    /*
+    const result = createCart({
+      goodsId,
+      amount
+    });
+    if(result?.id) {
+      // 성공 안내
+    } else {
+      // 실패 안내
+    }
+    */
+  }, [amount]);
 
   const handleChangeAmount = (amount: number) => {
     setAmount(amount);
@@ -33,8 +42,12 @@ const GoodsInteractive: React.FC<Props> = ({
     try {
       const data = await getGoodsStockCount(goodsId);
       const stock = data.result;
-      if (stock < amount) setIsOver(true);
-      else setIsOver(false);
+      if (stock < amount) {
+        setAmount(stock);
+        setIsOver(true);
+      } else {
+        setIsOver(false);
+      }
     } catch (e) {
       // TODO: 구매 불가능한 상태에 대한 처리 필요.
       setIsOver(false);
@@ -42,7 +55,7 @@ const GoodsInteractive: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    fetchCheckStock(id);
+    if (!isOver) fetchCheckStock(id);
   }, [amount]);
 
   return (
@@ -57,10 +70,12 @@ const GoodsInteractive: React.FC<Props> = ({
         onChangeAmount={handleChangeAmount}
       />
       <GoodsButtons
+        goodsId={id}
+        amount={amount}
         isWish={isWished}
+        fetchCheckStock={fetchCheckStock}
         onToggleWish={handleToWish}
         onAddToCart={handleAddToCart}
-        onAddToOrder={handleAddToOrder}
       />
     </div>
   );
