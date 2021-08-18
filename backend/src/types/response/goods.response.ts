@@ -26,3 +26,7 @@ export interface GoodsListResponse {
   meta?: GoodsListMetaData;
   goodsList?: TaggedGoodsType[];
 }
+
+export type BestGoodsType = Goods & {
+  sellCount: number;
+};
