@@ -19,4 +19,8 @@ router.get('/keyword', wrapAsync(GoodsController.getAllSaleGoodsByKeyword));
 router.get('/main', wrapAsync(GoodsController.getMainGoodsListMap));
 router.get('/:id/stock', checkNumberInParams, wrapAsync(GoodsController.getGoodsStockById));
 router.get('/:id', checkNumberInParams, wrapAsync(GoodsController.getGoodsDetail));
+
+// 관리자
+router.get('/best/sell', wrapAsync(GoodsController.getBestByPeriod));
+
 export default router;

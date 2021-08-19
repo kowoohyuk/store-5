@@ -5,6 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 import { Goods } from './Goods';
@@ -33,11 +34,15 @@ export class OrderItem {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @ManyToOne(() => Goods, (goods) => goods.id)
-  @JoinColumn()
-  goods: number;
+  @ManyToOne(() => Goods)
+  goods: Goods;
 
-  @ManyToOne(() => OrderList, (orderList) => orderList.id)
-  @JoinColumn()
-  orderList: number;
+  @ManyToOne(() => OrderList)
+  orderList: OrderList;
+
+  @RelationId('goods')
+  goodsId: number;
+
+  @RelationId('orderList')
+  orderListId: number;
 }

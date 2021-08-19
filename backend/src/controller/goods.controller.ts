@@ -75,21 +75,6 @@ async function getAllSaleGoodsByKeyword(req: Request, res: Response) {
   return res.status(200).json({ result });
 }
 
-async function getAllGoodsByUserId(req: Request, res: Response) {
-  const { page, keyword, limit, state = GoodsStateMap.sale } = req.query;
-  // TODO : 타입 체크
-  const GoodsListParams: GetAllByKeywordProps = {
-    keyword: String(keyword),
-    page: Number(page),
-    limit: Number(limit),
-    state: String(state) as GoodsState,
-    userId: req.userId,
-  };
-
-  const result = await GoodsService.getAllSaleGoodsByKeyword(GoodsListParams);
-  return res.status(200).json({ result });
-}
-
 async function getMainGoodsListMap(req: Request, res: Response) {
   const result = await GoodsService.getMainGoodsListMap();
   return res.status(200).json({ result });
@@ -101,6 +86,18 @@ async function getGoodsStockById(req: Request, res: Response) {
   return res.status(200).json({ result });
 }
 
+async function getBestByPeriod(req: Request, res: Response) {
+  // 기본 값 5
+  const DEFAULT_LIMIT = 5;
+  const { start, end, limit = DEFAULT_LIMIT } = req.query;
+  const startDate = new Date(String(start));
+  const endDate = new Date(String(end));
+  if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || isNaN(Number(limit)))
+    throw new BadRequestError(INVALID_DATA);
+  const result = await GoodsService.getBestByPeriod(startDate, endDate, Number(limit));
+  return res.status(200).json({ result });
+}
+
 export const GoodsController = {
   createGoods,
   getGoodsDetail,
@@ -108,4 +105,6 @@ export const GoodsController = {
   getAllSaleGoodsByKeyword,
   getMainGoodsListMap,
   getGoodsStockById,
+  // 관리자
+  getBestByPeriod,
 };

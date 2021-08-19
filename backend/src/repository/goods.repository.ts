@@ -3,7 +3,7 @@ import { GOODS_DB_ERROR } from '../constants/database-error-name';
 import { DatabaseError } from '../errors/base.error';
 import { Goods } from '../entity/Goods';
 import { FindAllCategoryProps, FindAllColumnNameProps, FindAllKeywordProps, FindAllUserIdProps } from '../types/Goods';
-import { TaggedGoodsType } from '../types/response/goods.response';
+import { BestGoodsType, TaggedGoodsType } from '../types/response/goods.response';
 import { SearchedGoodsFromKeyword } from '../types/response/search.response';
 import { GoodsStateMap } from '../controller/goods.controller';
 
@@ -178,6 +178,22 @@ async function findStockById(goodsId: number): Promise<number> {
   return goods?.stock ?? 0;
 }
 
+async function findBestByPeriod(startDate: Date, endDate: Date): Promise<BestGoodsType[]> {
+  const goods = await getRepository(Goods)
+    .createQueryBuilder('goods')
+    .leftJoin('orderItem', 'o')
+    .addSelect('COUNT(o.*) AS count')
+    .where(`o.createdAt >= '${startDate}' AND o.createdAt <= '${endDate}'`)
+    .andWhere('goods.id = o.goodsId')
+    .groupBy('goods.id')
+    .orderBy('count', 'DESC')
+    .limit(5)
+    .getMany();
+  console.log('카운트으');
+  console.log(goods);
+  return [];
+}
+
 export const GoodsRepository = {
   findGoodsDetailById,
   findAllByCategory,
@@ -189,4 +205,6 @@ export const GoodsRepository = {
   findSellCountAverage,
   searchGoodsFromKeyword,
   findStockById,
+  // 관리자
+  findBestByPeriod,
 };

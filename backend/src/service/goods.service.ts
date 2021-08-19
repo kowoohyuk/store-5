@@ -7,6 +7,7 @@ import {
   GoodsListResponse,
   GoodsListMetaData,
   TaggedGoodsType,
+  BestGoodsType,
 } from '../types/response/goods.response';
 import { WishRepository } from '../repository/wish.repository';
 import {
@@ -24,6 +25,7 @@ import { GOODS_DB_ERROR } from '../constants/database-error-name';
 import { CategoryRepository } from '../repository/category.repository';
 import { GoodsStateMap } from '../controller/goods.controller';
 import { CreateGoodsBody } from '../types/request/goods.request';
+import { OrderItemRepository } from '../repository/order.item.repository';
 
 async function createGoods(body: CreateGoodsBody, uploadFileUrls: string[]): Promise<Goods> {
   return await getConnection().transaction(async (transactionalEntityManager) => {
@@ -258,6 +260,13 @@ function getTotalPage(totalCount: number, limit: number): number {
   return Math.ceil(totalCount / limit);
 }
 
+async function getBestByPeriod(startDate: Date, endDate: Date, limit: number): Promise<BestGoodsType[]> {
+  const any: any[] = await OrderItemRepository.findCountByPeriod(startDate, endDate, limit);
+  console.log(any);
+  const stock = await GoodsRepository.findBestByPeriod(startDate, endDate);
+  return stock;
+}
+
 export const GoodsService = {
   createGoods,
   getDetailById,
@@ -267,4 +276,6 @@ export const GoodsService = {
   getAllGoodsByUserId,
   getMainGoodsListMap,
   getGoodsStockById,
+  // 관리자
+  getBestByPeriod,
 };

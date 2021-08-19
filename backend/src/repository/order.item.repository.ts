@@ -24,8 +24,31 @@ async function findOrderGoodsInfoById(orderItemId: number): Promise<OrderItem | 
   });
 }
 
+async function findCountByPeriod(startDate: Date, endDate: Date, limit: number): Promise<any[]> {
+  return await getRepository(OrderItem).createQueryBuilder('o').limit(limit).getMany();
+
+  /*
+  return await getRepository(OrderItem)
+    .createQueryBuilder('o')
+    .select('o.goodsId')
+    .addSelect('COUNT(*) AS count')
+    .where('o.createdAt >= :startDate', { startDate: getDateString(startDate) })
+    .andWhere('o.createdAt <= :endDate', { endDate: getDateString(endDate) })
+    .orderBy('count', 'DESC')
+    .groupBy('o.goodsId')
+    .limit(limit)
+    .getMany();
+    */
+}
+
+function getDateString(date: Date): string {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+}
+
 export const OrderItemRepository = {
   createOrderItem,
   getAllOrderItemByListId,
   findOrderGoodsInfoById,
+  // 관리자
+  findCountByPeriod,
 };
