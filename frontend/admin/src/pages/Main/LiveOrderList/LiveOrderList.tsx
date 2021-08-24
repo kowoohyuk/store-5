@@ -49,17 +49,16 @@ const LiveOrderList = () => {
 };
 
 const LiveOrderListContainer = styled('div')`
-  margin-left: 16px;
   padding: 16px;
-  background-color: whitesmoke;
-  border-radius: 16px;
+  background-color: #fff;
+  border-radius: 6px;
   height: 100%;
 `;
 
 const LiveOrderListTitle = styled('span')<{ color: string }>`
   color: ${(props) => props.color};
   height: 1.5em;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 16px;
 `;
 

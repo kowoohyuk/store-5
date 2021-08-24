@@ -34,7 +34,7 @@ const CategoryBarChart = () => {
 
   return (
     <CategoryBarContainer>
-      <BarChartTitle color={theme.greenColor}>카테고리 조회 수</BarChartTitle>
+      <BarChartTitle color={theme.black5}>카테고리 조회 수</BarChartTitle>
       <ResponsiveContainer width='100%' height='95%'>
         <ComposedChart
           data={categoryViews}
@@ -62,9 +62,8 @@ const CategoryBarContainer = styled('div')`
   padding: 16px;
   width: 50%;
   height: 100%;
-  background-color: whitesmoke;
-  border-radius: 16px;
-  margin-right: 16px;
+  background-color: #fff;
+  border-radius: 6px;
 `;
 
 const BarChartTitle = styled('div')<{ color: string }>`

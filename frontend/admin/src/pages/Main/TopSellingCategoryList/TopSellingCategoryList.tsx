@@ -18,8 +18,8 @@ const TopSellingCategoryList = () => {
   return (
     <TopSellingContainer>
       <TopSellingTitleContainer>
-        <TopSellingTitle color={theme.greenColor}>Top Selling Categories</TopSellingTitle>
-        <TopSellingTitle color={theme.greenColor}>판매량</TopSellingTitle>
+        <TopSellingTitle color={theme.black5}>Top Selling Categories</TopSellingTitle>
+        <TopSellingTitle color={theme.black5}>판매량</TopSellingTitle>
       </TopSellingTitleContainer>
       <CategoriesContainer>
         {categories.map((category, i) => (
@@ -37,8 +37,8 @@ const TopSellingContainer = styled('div')`
   width: 50%;
   height: 100%;
   padding: 16px;
-  background-color: whitesmoke;
-  border-radius: 16px;
+  background-color: #fff;
+  border-radius: 6px;
 `;
 
 const TopSellingTitleContainer = styled('div')`
@@ -49,7 +49,7 @@ const TopSellingTitleContainer = styled('div')`
 const TopSellingTitle = styled('span')<{ color: string }>`
   color: ${(props) => props.color};
   height: 1.5em;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 16px;
 `;
 
