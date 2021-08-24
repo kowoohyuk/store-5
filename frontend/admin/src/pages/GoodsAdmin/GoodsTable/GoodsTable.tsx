@@ -18,8 +18,6 @@ const LIMIT_COUNT_ITEMS_IN_PAGE = 10;
 const DEFAULT_START_PAGE = 1;
 
 const GoodsTable: React.FC<Props> = ({ openUploadModal }) => {
-  // TODO: reducer 적용
-  // const tmp = useReducer(reduce, state);
   const [goodsListMap, setGoodsListMap] = useState<GoodsPaginationResult | null>(null);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateGoods, setUpdateGoods] = useState<GoodsItem | null>(null);
@@ -52,11 +50,20 @@ const GoodsTable: React.FC<Props> = ({ openUploadModal }) => {
     });
   };
 
+  const handleOrderAndSortGoods = (order: string, sort: 'ASC' | 'DESC') => {
+    setSearchQuery({
+      ...searchQuery,
+      order,
+      sort,
+    });
+  };
+
   const handleUpdateGoods = useCallback((goods: GoodsItem) => {
     setUpdateGoods(goods);
   }, []);
 
   useEffect(() => {
+    console.log(searchQuery);
     fetchGoodsList();
   }, [searchQuery, updateGoods]);
 
@@ -76,7 +83,7 @@ const GoodsTable: React.FC<Props> = ({ openUploadModal }) => {
     <>
       <Search setKeyword={setKeyword} />
       <GoodsTableContainer>
-        <GoodsTableHead />
+        <GoodsTableHead handleOrderAndSortGoods={handleOrderAndSortGoods} searchQuery={searchQuery} />
         <GoodsTableBody goodsList={goodsListMap.goodsList} handleUpdateGoods={handleUpdateGoods} />
       </GoodsTableContainer>
       <Paginator totalPage={goodsListMap.meta.totalPage} currentPage={goodsListMap.meta.page} setPage={setPage} />
