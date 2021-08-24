@@ -53,7 +53,9 @@ const GoodsTableHeadData: React.FC<Props> = ({ text, flag, handleOrderAndSortGoo
 const GoodsTableHeadDataContainer = styled.th<{ active: boolean }>`
   padding: 4px;
   vertical-align: middle;
-  ${(props) => props.active && `color : ${theme.primary}`}
+  * {
+    ${(props) => props.active && `color : ${theme.primary}`}
+  }
 `;
 
 const SortButton = styled.button`

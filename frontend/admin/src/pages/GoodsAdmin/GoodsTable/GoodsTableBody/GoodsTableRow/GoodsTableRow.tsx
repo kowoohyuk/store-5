@@ -4,6 +4,7 @@ import originStyled from 'styled-components';
 import { GoodsItem } from '@src/types/Goods';
 import { getDiscountedPrice, getPriceText } from '@src/utils/price';
 import { convertYYYYMMDD } from '@src/utils/dateHelper';
+import { theme } from '@src/theme/theme';
 
 interface Props {
   goods: GoodsItem;
@@ -21,8 +22,7 @@ const STATE_MAP: StateMap = {
 };
 
 const GoodsTableRow: React.FC<Props> = ({ goods, handleUpdateGoods }) => {
-  const { id, thumbnailUrl, title, price, discountRate, stock, countOfSell, createdAt, updatedAt, state, category } =
-    goods;
+  const { thumbnailUrl, title, price, discountRate, stock, countOfSell, createdAt, updatedAt, state, category } = goods;
   return (
     <GoodsTableRowContainer onClick={() => handleUpdateGoods(goods)}>
       <TableData>
@@ -30,7 +30,7 @@ const GoodsTableRow: React.FC<Props> = ({ goods, handleUpdateGoods }) => {
       </TableData>
       <TableData>{title}</TableData>
       <TableData>{getPriceText(price)}원</TableData>
-      <TableData>{discountRate}</TableData>
+      <TableData>{discountRate}%</TableData>
       <TableData>{stock}</TableData>
       <TableData>{countOfSell}</TableData>
       <TableData>{convertYYYYMMDD(new Date(createdAt))}</TableData>
