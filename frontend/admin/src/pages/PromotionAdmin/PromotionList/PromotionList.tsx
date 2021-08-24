@@ -12,7 +12,6 @@ interface Props {
 const PromotionList: React.FC<Props> = ({ promotions, onDeletePromotion }) => {
   return (
     <>
-      {/* <PromotionSpan color={theme.greenColor}>{`등록된 프로모션 ${promotions.length}건`}</PromotionSpan> */}
       <PromotionListContainer>
         {promotions.map((promotion) => (
           <PromotionItem key={promotion.id} onDeletePromotion={onDeletePromotion} promotion={promotion} />
@@ -21,19 +20,6 @@ const PromotionList: React.FC<Props> = ({ promotions, onDeletePromotion }) => {
     </>
   );
 };
-
-const PromotionCounterContainer = styled('div')`
-  margin-left: 5%;
-  margin-top: 3%;
-  margin-bottom: 2%;
-`;
-
-const PromotionSpan = styled('span')<{ color: string }>`
-  color: ${(props) => props.color};
-  font-weight: 700;
-  font-size: 1.2em;
-  margin-right: 12px;
-`;
 
 const PromotionListContainer = styled('ul')`
   position: relative;

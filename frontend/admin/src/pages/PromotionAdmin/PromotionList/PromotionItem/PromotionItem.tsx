@@ -53,14 +53,14 @@ const PromotionItem: React.FC<Props> = ({ promotion, onDeletePromotion }) => {
 const PromotionContainer = styled('div')`
   position: relative;
   width: 50%;
-  height: 300px;
+  height: 280px;
   padding: 1rem;
   margin-bottom: 1rem;
 `;
 
 const PromotionImage = styled('img')`
   width: 100%;
-  height: 300px;
+  height: 100%;
   border-radius: 10px;
 `;
 

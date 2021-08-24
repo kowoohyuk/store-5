@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  Label,
-  YAxis,
-  LabelList,
-  TooltipProps,
-} from 'recharts';
+import { Tooltip, ResponsiveContainer, BarChart, Bar, Cell, XAxis, YAxis, TooltipProps } from 'recharts';
 import styled from 'styled-components';
 import { theme } from '@src/theme/theme';
 import { BarChartData } from '@src/types/Chart';
-import PromotionAPI from '@src/apis/promotionAPI';
 import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
+import { Promotion } from '@src/types/Promotion';
 
-const PromotionViewChart = () => {
+interface Props {
+  promotions: Promotion[];
+}
+
+const PromotionViewChart: React.FC<Props> = ({ promotions }) => {
   const [chartData, setChartData] = useState<BarChartData>([]);
   const COLORS = [
     theme.ChartColorRed,
@@ -29,21 +22,13 @@ const PromotionViewChart = () => {
   ];
 
   useEffect(() => {
-    async function fetchChartData() {
-      try {
-        const { result } = await PromotionAPI.getPromotionChartData();
-        setChartData(
-          result.map(({ title, view }) => ({
-            name: title,
-            value: view,
-          }))
-        );
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchChartData();
-  }, []);
+    setChartData(
+      promotions.map(({ title, view }) => ({
+        name: title,
+        value: view,
+      }))
+    );
+  }, [promotions]);
 
   const CustomTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
     const payloadItem = payload?.[0]?.payload;
@@ -58,7 +43,7 @@ const PromotionViewChart = () => {
 
   return (
     <BarChartContainer>
-      <BarChartTitle color={theme.black5}>프로모션 조회수</BarChartTitle>
+      <BarChartTitle color={theme.black5}>프로모션 조회수 차트</BarChartTitle>
       <ResponsiveContainer width='100%' height='100%'>
         <BarChart width={20} height={30} data={chartData}>
           <Bar maxBarSize={30} dataKey='value' cursor='pointer' label={(entry) => entry.name}>

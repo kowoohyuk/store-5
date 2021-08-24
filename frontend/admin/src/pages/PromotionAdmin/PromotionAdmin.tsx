@@ -3,7 +3,6 @@ import { styled } from '@src/lib/CustomStyledComponent';
 import PromotionList from '@src/pages/PromotionAdmin/PromotionList/PromotionList';
 import PromotionViewChart from '@src/pages/PromotionAdmin/PromotionViewChart/PromotionViewChart';
 import PromotionUploadModal from '@src/portal/PromotionUploadModal/PromotionUploadModal';
-import { theme } from '@src/theme/theme';
 import { Promotion } from '@src/types/Promotion';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -13,7 +12,7 @@ const PromotionAdmin = () => {
 
   const fetchingPromotions = useCallback(async () => {
     try {
-      const { result } = await PromotionAPI.getPromotions();
+      const { result } = await PromotionAPI.getPromotionsForAdmin();
       setPromotions(result);
     } catch (err) {
       console.error(err);
@@ -38,8 +37,12 @@ const PromotionAdmin = () => {
   }, []);
   return (
     <PromotionAdminContainer>
+      <GoodsAdminHeader>
+        <Title>프로모션 관리</Title>
+        <PromotionSpan>{`총 프로모션 ${promotions.length}건`}</PromotionSpan>
+      </GoodsAdminHeader>
       <PromotionChartAndButtonContainer>
-        <PromotionViewChart />
+        <PromotionViewChart promotions={promotions} />
         <PromotionAddButton onClick={onOpenModal}>+</PromotionAddButton>
       </PromotionChartAndButtonContainer>
       <PromotionList promotions={promotions} onDeletePromotion={handleDeletePromotion} />
@@ -49,9 +52,27 @@ const PromotionAdmin = () => {
 };
 
 const PromotionAdminContainer = styled('div')`
-  position: relative;
   width: 100%;
-  min-width: 1080px;
+  position: relative;
+  margin: 5rem;
+  margin-bottom: 0;
+  overflow-y: auto;
+`;
+
+const GoodsAdminHeader = styled('div')`
+  display: flex;
+  column-gap: 1rem;
+  margin-bottom: 20px;
+  align-items: flex-end;
+`;
+
+const Title = styled('h2')`
+  font-size: 24px;
+  font-weight: 600;
+`;
+
+const PromotionSpan = styled('span')`
+  font-size: 16px;
 `;
 
 const PromotionChartAndButtonContainer = styled('div')`
@@ -64,9 +85,10 @@ const PromotionChartAndButtonContainer = styled('div')`
 `;
 const PromotionAddButton = styled('button')`
   position: relative;
-  font-size: 2em;
+  font-size: 3rem;
   width: 50%;
   height: 250px;
+  margin: 1rem;
   border-radius: 20px;
   cursor: pointer;
   border: none;
