@@ -62,7 +62,6 @@ const PieChartContainer = styled.div`
   height: 100%;
   background-color: whitesmoke;
   border-radius: 16px;
-  margin-right: 16px;
 `;
 
 const PieChartTitle = styled.span<{ color: string }>`

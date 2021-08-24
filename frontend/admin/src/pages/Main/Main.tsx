@@ -39,14 +39,15 @@ const LeftContainer = styled('div')`
   flex-direction: column;
   position: relative;
   width: 60%;
-  height: 100%;
+  height: 50%;
+  row-gap: 1rem;
 `;
 
 const LeftTopContainer = styled('div')`
   display: flex;
   width: 100%;
-  height: 50%;
-  padding-bottom: 16px;
+  height: 100%;
+  column-gap: 1rem;
 `;
 
 const LeftBottomContainer = styled('div')`
@@ -58,6 +59,7 @@ const LeftBottomContainer = styled('div')`
 const RightContainer = styled('div')`
   width: 40%;
   height: 100%;
+  column-gap: 1rem;
 `;
 
 export default Main;
