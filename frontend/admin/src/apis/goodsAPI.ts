@@ -51,11 +51,11 @@ const getGoodsOptionURL = ({
   page,
   limit = DEFAULT_LIMIT,
   keyword = '',
-  order,
+  flag,
   sort,
 }: GetGoodsByOptionProps): string => {
   return `/api/goods/admin?page=${page}&limit=${limit}${keyword ? `&keyword=${keyword}` : ''}${
-    order ? `&order=${order}` : ''
+    flag ? `&flag=${flag}` : ''
   }${sort ? `&sort=${sort}` : ''}`;
 };
 
