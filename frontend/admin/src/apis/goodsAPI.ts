@@ -23,23 +23,11 @@ const updateGoods = async (formData: FormData, goodsId: number): Promise<APIResp
 
 const DEFAULT_LIMIT = 10;
 
-export const getGoodsByOption = async ({
-  page,
-  limit = DEFAULT_LIMIT,
-  keyword = '',
-  order,
-  sort,
-}: GetGoodsByOptionProps): Promise<APIResponse<GoodsPaginationResult>> => {
-  const res = await checkedFetch(
-    `/api/goods/admin?page=${page}&limit=${limit}
-    ${keyword ? `&keyword=${keyword}` : ''}
-    ${order ? `&order=${order}` : ''}
-    ${sort ? `&sort=${sort}` : ''}`,
-    {
-      method: 'GET',
-      credentials: 'include',
-    }
-  );
+export const getGoodsByOption = async (option: GetGoodsByOptionProps): Promise<APIResponse<GoodsPaginationResult>> => {
+  const res = await checkedFetch(getGoodsOptionURL(option), {
+    method: 'GET',
+    credentials: 'include',
+  });
   return await res.json();
 };
 
@@ -57,6 +45,18 @@ const getBestSellingGoodsForDashboard = async (): Promise<APIResponse<GoodsItem[
     credentials: 'include',
   });
   return await res.json();
+};
+
+const getGoodsOptionURL = ({
+  page,
+  limit = DEFAULT_LIMIT,
+  keyword = '',
+  order,
+  sort,
+}: GetGoodsByOptionProps): string => {
+  return `/api/goods/admin?page=${page}&limit=${limit}${keyword ? `&keyword=${keyword}` : ''}${
+    order ? `&order=${order}` : ''
+  }${sort ? `&sort=${sort}` : ''}`;
 };
 
 export const GoodsAPI = {
