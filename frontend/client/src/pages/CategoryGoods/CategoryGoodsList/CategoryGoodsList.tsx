@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 import GoodsSection from '@src/components/GoodsSection/GoodsSection';
 import CategoryFlag from '@src/pages/CategoryGoods/CategoryGoodsList/CategoryFlag';
 import Paginator from '@src/components/Paginator/Paginator';
@@ -13,10 +12,10 @@ interface Props {
 }
 
 const GoodsFlag = {
-  best: 'best',
-  latest: 'latest',
-  low: 'low',
-  high: 'high',
+  best: 'sell',
+  latest: 'create',
+  low: 'low_price',
+  high: 'high_price',
 };
 
 const flags = [
@@ -29,6 +28,10 @@ const flags = [
 const LIMIT_COUNT_ITEMS_IN_PAGE = 8;
 const DEFAULT_START_PAGE = 1;
 
+const getOrderByOption = (flag: string) => (flag === 'low_price' ? 'ASC' : 'DESC');
+
+const convertAPIFlag = (flag: string) => (flag === 'low_price' || flag === 'high_price' ? 'price' : flag);
+
 const CategoryGoodsList: React.FC<Props> = ({ category }) => {
   const [goodsListMap, setGoodsListMap] = useState<GoodsPaginationResult | null>(null);
   const [searchQuery, setSearchQuery] = useScrollToTop<GetGoodsByCategoryProps>({
@@ -39,7 +42,12 @@ const CategoryGoodsList: React.FC<Props> = ({ category }) => {
 
   const fetchGoodsList = async () => {
     try {
-      const data = await getGoodsByCategory({ ...searchQuery, limit: LIMIT_COUNT_ITEMS_IN_PAGE });
+      const data = await getGoodsByCategory({
+        ...searchQuery,
+        limit: LIMIT_COUNT_ITEMS_IN_PAGE,
+        sort: getOrderByOption(searchQuery.flag),
+        flag: convertAPIFlag(searchQuery.flag),
+      });
       setGoodsListMap(data.result);
     } catch (e) {
       setGoodsListMap(null);

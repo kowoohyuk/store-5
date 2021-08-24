@@ -52,7 +52,7 @@ const getGoodsOptionURL = ({
   limit = DEFAULT_LIMIT,
   keyword = '',
   flag = 'create',
-  sort = 'ASC',
+  sort = 'DESC',
 }: GetGoodsByOptionProps): string => {
   return `/api/goods/admin?page=${page}&limit=${limit}${keyword ? `&keyword=${keyword}` : ''}${
     flag ? `&flag=${flag}` : ''
