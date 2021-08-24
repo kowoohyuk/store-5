@@ -1,6 +1,7 @@
 import PromotionAPI from '@src/apis/promotionAPI';
 import { styled } from '@src/lib/CustomStyledComponent';
 import PromotionList from '@src/pages/PromotionAdmin/PromotionList/PromotionList';
+import PromotionViewChart from '@src/pages/PromotionAdmin/PromotionViewChart/PromotionViewChart';
 import PromotionUploadModal from '@src/portal/PromotionUploadModal/PromotionUploadModal';
 import { theme } from '@src/theme/theme';
 import { Promotion } from '@src/types/Promotion';
@@ -19,7 +20,7 @@ const PromotionAdmin = () => {
     }
   }, [setPromotions]);
 
-  const handleOpenModal = useCallback(() => {
+  const onOpenModal = useCallback(() => {
     setOpenPromotionModal(true);
   }, [setOpenPromotionModal]);
 
@@ -37,10 +38,11 @@ const PromotionAdmin = () => {
   }, []);
   return (
     <PromotionAdminContainer>
-      <PromotionCounterContainer>
-        <PromotionSpan color={theme.greenColor}>{`등록된 프로모션 ${promotions.length}건`}</PromotionSpan>
-      </PromotionCounterContainer>
-      <PromotionList promotions={promotions} onDeletePromotion={handleDeletePromotion} onOpenModal={handleOpenModal} />
+      <PromotionChartAndButtonContainer>
+        <PromotionViewChart />
+        <PromotionAddButton onClick={onOpenModal}>+</PromotionAddButton>
+      </PromotionChartAndButtonContainer>
+      <PromotionList promotions={promotions} onDeletePromotion={handleDeletePromotion} />
       {openPromotionModal && <PromotionUploadModal updatePromotions={fetchingPromotions} onClose={handleCloseModal} />}
     </PromotionAdminContainer>
   );
@@ -52,16 +54,23 @@ const PromotionAdminContainer = styled('div')`
   min-width: 1080px;
 `;
 
-const PromotionCounterContainer = styled('div')`
-  margin-left: 5%;
-  margin-top: 3%;
-  margin-bottom: 2%;
+const PromotionChartAndButtonContainer = styled('div')`
+  position: relative;
+  padding: 16px;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
 `;
-const PromotionSpan = styled('span')<{ color: string }>`
-  color: ${(props) => props.color};
-  font-weight: 700;
-  font-size: 1.2em;
-  margin-right: 12px;
+const PromotionAddButton = styled('button')`
+  position: relative;
+  font-size: 2em;
+  width: 50%;
+  height: 250px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  color: gray;
 `;
 
 export default PromotionAdmin;
