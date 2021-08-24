@@ -24,7 +24,7 @@ const TopSellingGoodsList = () => {
       </TopSellingTitleContainer>
       <GoodsListContainer>
         {goodsList.map((item, i) => (
-          <TopSellingGoods key={i} item={item} rank={i} />
+          <TopSellingGoods key={i} item={item} rank={i + 1} />
         ))}
       </GoodsListContainer>
     </TopSellingContainer>

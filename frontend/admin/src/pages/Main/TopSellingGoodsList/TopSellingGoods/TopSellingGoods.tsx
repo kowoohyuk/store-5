@@ -14,6 +14,7 @@ interface Props {
 }
 
 const TopSellingGoods: React.FC<Props> = ({ item, rank }) => {
+  const BGCOLOR = [theme.GOLD, theme.SILVER, theme.BRONZE, 'transparent', 'transparent'];
   return (
     <TopSellingGoodsContainer>
       <TopSellingGoodsImage src={item.thumbnailUrl} />
@@ -21,7 +22,7 @@ const TopSellingGoods: React.FC<Props> = ({ item, rank }) => {
       <SellingGoodsCountContainer>
         <TopSellingGoodsCount color={theme.greenColor}> {convertCountOfSell(item.countOfSell)}</TopSellingGoodsCount>개
       </SellingGoodsCountContainer>
-      <TopSellingRank bgcolor={theme.greenColor}>{rank + 1}</TopSellingRank>
+      <TopSellingRank bgcolor={BGCOLOR[rank - 1]}>{rank}</TopSellingRank>
     </TopSellingGoodsContainer>
   );
 };
@@ -78,7 +79,7 @@ const TopSellingGoodsCount = styled('span')<{ color: string }>`
   color: ${(props) => props.color};
 `;
 
-const TopSellingRank = styled('div')<{ bgcolor: string }>`
+const TopSellingRank = originStyled.div<{ bgcolor: string }>`
   position: absolute;
   top: 0px;
   left: -10px;

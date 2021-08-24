@@ -9,15 +9,16 @@ interface Props {
 }
 
 const TopSellingCategory: React.FC<Props> = ({ category, rank }) => {
-  const BGCOLOR = [theme.GOLD, theme.SILVER, theme.BRONZE, theme.LIGHTGRAY, theme.LIGHTGRAY];
+  const BGCOLOR = [theme.GOLD, theme.SILVER, theme.BRONZE, 'transparent', 'transparent'];
   return (
     <TopSellingCategoryContainer>
       <TopSellingInfoContainer>
         <TopSellingRank bgcolor={BGCOLOR[rank - 1]}>{rank}</TopSellingRank>
         <TopSellingCategoryTitle>{category.name}</TopSellingCategoryTitle>
       </TopSellingInfoContainer>
-      <TopSellingCategoryCountContainer color={theme.greenColor}>
-        <TopSellingCategoryCount>{convertCountOfSell(category.total)}</TopSellingCategoryCount>
+      <TopSellingCategoryCountContainer>
+        <TopSellingCategoryCount color={theme.greenColor}>{convertCountOfSell(category.total)}</TopSellingCategoryCount>
+        개
       </TopSellingCategoryCountContainer>
     </TopSellingCategoryContainer>
   );
@@ -31,30 +32,36 @@ const TopSellingCategoryContainer = styled.div`
 
 const TopSellingInfoContainer = styled.div`
   display: flex;
-  font-size: 1.1em;
-`;
-
-const TopSellingRank = styled.div<{ bgcolor: string }>`
-  margin-right: 24px;
-  background-color: ${(props) => props.bgcolor};
-  color: #fff;
-  width: 2em;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 2em;
-`;
-const TopSellingCategoryTitle = styled.p`
-  display: flex;
+  font-size: 14px;
+  grid-gap: 1.5rem;
   align-items: center;
 `;
 
-const TopSellingCategoryCountContainer = styled.div<{ color: string }>`
-  padding: 0.5em;
-  background-color: ${(props) => props.color};
-  border-radius: 12px;
-`;
-const TopSellingCategoryCount = styled.span`
+const TopSellingRank = styled.div<{ bgcolor: string }>`
+  background-color: ${(props) => props.bgcolor};
   color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.6em;
+  height: 1.6em;
+  font-size: 11px;
+  border-radius: 50%;
+`;
+const TopSellingCategoryTitle = styled.p`
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+`;
+
+const TopSellingCategoryCountContainer = styled.div`
+  font-size: 12px;
+`;
+const TopSellingCategoryCount = styled.span<{ color: string }>`
+  font-weight: 600;
+  font-size: 16px;
+  padding-right: 4px;
+  color: ${(props) => props.color};
 `;
 
 export default TopSellingCategory;
