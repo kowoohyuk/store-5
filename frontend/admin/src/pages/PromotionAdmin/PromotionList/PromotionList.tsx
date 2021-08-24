@@ -1,57 +1,48 @@
 import { styled } from '@src/lib/CustomStyledComponent';
 import PromotionItem from '@src/pages/PromotionAdmin/PromotionList/PromotionItem/PromotionItem';
+import { theme } from '@src/theme/theme';
 import { Promotion } from '@src/types/Promotion';
 import React from 'react';
 
 interface Props {
   promotions: Promotion[];
   onDeletePromotion: (promotionId: number) => Promise<void>;
-  onOpenModal: () => void;
 }
 
-const PromotionList: React.FC<Props> = ({ promotions, onDeletePromotion, onOpenModal }) => {
+const PromotionList: React.FC<Props> = ({ promotions, onDeletePromotion }) => {
   return (
-    <PromotionListContainer>
-      <PromotionAddButtonContainer>
-        <PromotionAddButton onClick={onOpenModal}>+</PromotionAddButton>
-      </PromotionAddButtonContainer>
-      {promotions.map((promotion) => (
-        <PromotionItem key={promotion.id} onDeletePromotion={onDeletePromotion} promotion={promotion} />
-      ))}
-    </PromotionListContainer>
+    <>
+      {/* <PromotionSpan color={theme.greenColor}>{`등록된 프로모션 ${promotions.length}건`}</PromotionSpan> */}
+      <PromotionListContainer>
+        {promotions.map((promotion) => (
+          <PromotionItem key={promotion.id} onDeletePromotion={onDeletePromotion} promotion={promotion} />
+        ))}
+      </PromotionListContainer>
+    </>
   );
 };
+
+const PromotionCounterContainer = styled('div')`
+  margin-left: 5%;
+  margin-top: 3%;
+  margin-bottom: 2%;
+`;
+
+const PromotionSpan = styled('span')<{ color: string }>`
+  color: ${(props) => props.color};
+  font-weight: 700;
+  font-size: 1.2em;
+  margin-right: 12px;
+`;
 
 const PromotionListContainer = styled('ul')`
   position: relative;
   display: flex;
-  width: 90%;
-  min-width: 972px;
-  height: 80%;
+  width: 100%;
   margin: auto;
   flex-wrap: wrap;
   overflow: auto;
-  padding: 40px 40px 0 40px;
-  border: 1px solid lightgray;
-  border-radius: 16px;
-`;
-const PromotionAddButtonContainer = styled('div')`
-  position: relative;
-  padding: 25px;
-  width: 50%;
-  height: 400px;
-  min-width: 440px;
-  min-height: 320px;
-`;
-const PromotionAddButton = styled('button')`
-  position: relative;
-  font-size: 2em;
-  width: 100%;
-  height: 250px;
-  border-radius: 20px;
-  cursor: pointer;
-  border: none;
-  color: gray;
+  padding: 16px;
 `;
 
 export default PromotionList;
