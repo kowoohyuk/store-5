@@ -57,7 +57,7 @@ const PromotionViewChart = () => {
 
   return (
     <PieChartContainer>
-      <PieChartTitle color={theme.greenColor}>프로모션 조회수</PieChartTitle>
+      <PieChartTitle color={theme.black5}>프로모션 조회수</PieChartTitle>
       <ResponsiveContainer width='100%' height='100%'>
         <BarChart width={20} height={30} data={chartData}>
           <Bar dataKey='value' cursor='pointer' label={(entry) => entry.name}>
@@ -77,8 +77,8 @@ const PieChartContainer = styled.div`
   padding: 16px;
   width: 50%;
   height: 20rem;
-  background-color: whitesmoke;
-  border-radius: 16px;
+  background-color: #fff;
+  border-radius: 6px;
   font-size: 12px;
 `;
 
@@ -91,7 +91,7 @@ const PieChartTitle = styled.span<{ color: string }>`
 
 const CustomTooltipContainer = styled('div')`
   border-radius: 4px;
-  background-color: #eee;
+  background-color: #fff;
   color: #333;
   opacity: 0.95;
 `;

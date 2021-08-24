@@ -34,20 +34,23 @@ const TopSellingGoodsContainer = styled('div')`
   margin-bottom: 16px;
 `;
 const TopSellingGoodsImage = styled('img')`
-  width: 25%;
-  height: 100%;
+  width: 64px;
+  height: 64px;
   margin-right: 16px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 2px;
 `;
 
 const TopSellingGoodsTitle = styled('p')`
   width: 60%;
-  margin-right: 16px;
+
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   text-align: start;
+  color: #555;
+  font-weight: 600;
+  font-size: 14px;
 `;
 
 const SellingGoodsCountContainer = styled('div')<{ bgcolor: string }>`
@@ -64,11 +67,15 @@ const TopSellingRank = styled('div')<{ bgcolor: string }>`
   position: absolute;
   top: -5px;
   left: -5px;
-  text-align: center;
   background-color: ${(props) => props.bgcolor};
   color: #fff;
-  width: 1.1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.6em;
+  height: 1.6em;
   border-radius: 50%;
+  font-size: 11px;
 `;
 
 export default TopSellingGoods;

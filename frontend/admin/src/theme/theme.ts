@@ -28,4 +28,7 @@ export const theme = {
   LIGHTGRAY: 'rgba(211,211,211,0.7)',
 
   WHITE: '#fff',
+  black3: '#333333',
+  black5: '#555555',
+  black6: '#666666',
 };
