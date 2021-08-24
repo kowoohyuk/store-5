@@ -3,7 +3,7 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { BadRequestError } from '../errors/client.error';
 import { PromotionRepository } from '../repository/promotion.repository';
 import { CreatePromotionBody } from '../types/request/promotion.request';
-import { PromotionResponse } from '../types/response/promotion.response';
+import { PromotionChartResponse, PromotionResponse } from '../types/response/promotion.response';
 
 const PROMOTION_PARAMETER_ERROR = '프로모션을 등록하기위해서 imgUrl 값은 필수입니다.';
 const PROMOTION_GOODS_ERROR = '프로모션을 진행하려는 해당 상품은 존재하지 않는 상품입니다.';
@@ -15,19 +15,11 @@ async function createPromotion(body: CreatePromotionBody, imgUrl: string): Promi
   return {
     id: newPromotion.id,
     imgUrl: newPromotion.imgUrl,
-    view: newPromotion.view,
   };
 }
 
 async function getPromotions(): Promise<PromotionResponse[]> {
-  const promotions = await PromotionRepository.getPromotions();
-  return promotions.map(({ id, imgUrl, view, goods }) => ({
-    id,
-    imgUrl,
-    view,
-    goodsId: goods.id,
-    title: goods.title,
-  }));
+  return await PromotionRepository.getPromotions();
 }
 
 async function deletePromotion(promotionId: number): Promise<DeleteResult> {
@@ -45,9 +37,21 @@ async function checkValidateCreatePromotion(body: CreatePromotionBody, imgUrl: s
   if (!imgUrl) throw new BadRequestError(PROMOTION_PARAMETER_ERROR);
 }
 
+async function getPromotionChartData(): Promise<PromotionChartResponse[]> {
+  const promotions = await PromotionRepository.getPromotionChartData();
+  return promotions.map(({ id, imgUrl, view, goods }) => ({
+    id,
+    imgUrl,
+    view,
+    goodsId: goods.id,
+    title: goods.title,
+  }));
+}
+
 export const PromotionService = {
   createPromotion,
   getPromotions,
+  getPromotionChartData,
   deletePromotion,
   increasePromotionView,
 };

@@ -31,9 +31,15 @@ async function increasePromotionView(req: Request, res: Response) {
   res.sendStatus(204);
 }
 
+async function getPromotionChartData(req: Request, res: Response) {
+  const result = await PromotionService.getPromotionChartData();
+  res.status(200).json({ result });
+}
+
 export const PromotionController = {
   createPromotion,
   getPromotions,
   deletePromotion,
   increasePromotionView,
+  getPromotionChartData,
 };
