@@ -40,21 +40,22 @@ const LeftContainer = styled('div')`
   flex-direction: column;
   position: relative;
   width: 60%;
-  height: calc(100% - 2rem);
+  height: 100%;
+  justify-content: space-around;
   row-gap: 2rem;
 `;
 
 const LeftTopContainer = styled('div')`
   display: flex;
   width: 100%;
-  height: 50%;
+  height: calc(50% - 1rem);
   column-gap: 2rem;
 `;
 
 const LeftBottomContainer = styled('div')`
   display: flex;
   width: 100%;
-  height: 50%;
+  height: calc(50% - 1rem);
   column-gap: 2rem;
 `;
 
