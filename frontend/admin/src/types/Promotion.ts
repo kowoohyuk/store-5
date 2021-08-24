@@ -1,7 +1,10 @@
 export interface Promotion {
   id: number;
-  view: number;
   imgUrl: string;
-  title: string;
-  goodsId?: number;
 }
+
+export type PromotionChartData = Promotion & {
+  view: number;
+  title: string;
+  goodsId: number;
+};

@@ -31,7 +31,7 @@ const PromotionViewChart = () => {
   useEffect(() => {
     async function fetchChartData() {
       try {
-        const { result } = await PromotionAPI.getPromotions();
+        const { result } = await PromotionAPI.getPromotionChartData();
         setChartData(
           result.map(({ title, view }) => ({
             name: title,
