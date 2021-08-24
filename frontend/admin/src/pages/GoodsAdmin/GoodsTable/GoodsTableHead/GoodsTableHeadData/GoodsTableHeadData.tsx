@@ -6,8 +6,8 @@ import { theme } from '@src/theme/theme';
 
 interface Props {
   text: string;
-  order?: string;
-  handleOrderAndSortGoods: (order: string, sort: Sort) => void;
+  flag?: string;
+  handleOrderAndSortGoods: (flag: string, sort: Sort) => void;
   searchQuery?: GetGoodsByOptionProps;
 }
 
@@ -20,25 +20,25 @@ const reverseSort = (sort: Sort) => (sort === ASC ? DESC : ASC);
 
 const initialState = (): { active: boolean; sort: Sort } => ({ active: false, sort: ASC });
 
-const GoodsTableHeadData: React.FC<Props> = ({ text, order, handleOrderAndSortGoods, searchQuery }) => {
+const GoodsTableHeadData: React.FC<Props> = ({ text, flag, handleOrderAndSortGoods, searchQuery }) => {
   const [sortState, setSortState] = useState(initialState());
   const handleClick = useCallback(() => {
     setSortState({ active: true, sort: reverseSort(sortState.sort) });
   }, [sortState]);
 
   useEffect(() => {
-    if (order && sortState.active) {
-      handleOrderAndSortGoods(order, sortState.sort);
+    if (flag && sortState.active) {
+      handleOrderAndSortGoods(flag, sortState.sort);
     }
   }, [sortState]);
 
   useEffect(() => {
-    searchQuery?.order !== order && setSortState(initialState());
+    searchQuery?.flag !== flag && setSortState(initialState());
   }, [searchQuery]);
 
   return (
     <GoodsTableHeadDataContainer active={sortState.active}>
-      {order ? (
+      {flag ? (
         <SortButton onClick={handleClick}>
           <ButtonText>{text}</ButtonText>
           {sortState.sort === ASC ? <FaAngleDown /> : <FaAngleUp />}

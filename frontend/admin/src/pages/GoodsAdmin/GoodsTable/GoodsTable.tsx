@@ -24,7 +24,6 @@ const GoodsTable: React.FC<Props> = ({ openUploadModal }) => {
   const [searchQuery, setSearchQuery] = useState<GetGoodsByOptionProps>({
     page: DEFAULT_START_PAGE,
     limit: LIMIT_COUNT_ITEMS_IN_PAGE,
-    keyword: '',
   });
 
   const fetchGoodsList = async () => {
@@ -50,10 +49,11 @@ const GoodsTable: React.FC<Props> = ({ openUploadModal }) => {
     });
   };
 
-  const handleOrderAndSortGoods = (order: string, sort: 'ASC' | 'DESC') => {
+  // Q: 굳이 페이지를 1로 초기화할 필요는 없는듯?
+  const handleOrderAndSortGoods = (flag: string, sort: 'ASC' | 'DESC') => {
     setSearchQuery({
       ...searchQuery,
-      order,
+      flag,
       sort,
     });
   };

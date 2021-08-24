@@ -5,7 +5,7 @@ import GoodsTableHeadData from '@src/pages/GoodsAdmin/GoodsTable/GoodsTableHead/
 import { GetGoodsByOptionProps } from '@src/types/Goods';
 
 interface Props {
-  handleOrderAndSortGoods: (order: string, sort: 'ASC' | 'DESC') => void;
+  handleOrderAndSortGoods: (flag: string, sort: 'ASC' | 'DESC') => void;
   searchQuery: GetGoodsByOptionProps;
 }
 
@@ -18,43 +18,39 @@ const GoodsTableHead: React.FC<Props> = ({ handleOrderAndSortGoods, searchQuery 
           text={'상품명'}
           searchQuery={searchQuery}
           handleOrderAndSortGoods={handleOrderAndSortGoods}
-          order={'title'}
+          flag={'title'}
         />
         <GoodsTableHeadData
           text={'금액'}
           searchQuery={searchQuery}
           handleOrderAndSortGoods={handleOrderAndSortGoods}
-          order={'price'}
+          flag={'price'}
         />
         <GoodsTableHeadData
           text={'할인율'}
           searchQuery={searchQuery}
           handleOrderAndSortGoods={handleOrderAndSortGoods}
-          order={'discountRate'}
+          flag={'discount'}
         />
         <GoodsTableHeadData
           text={'재고'}
           searchQuery={searchQuery}
           handleOrderAndSortGoods={handleOrderAndSortGoods}
-          order={'stock'}
+          flag={'stock'}
         />
         <GoodsTableHeadData
           text={'판매량'}
           searchQuery={searchQuery}
           handleOrderAndSortGoods={handleOrderAndSortGoods}
-          order={'countOfSell'}
+          flag={'sell'}
         />
         <GoodsTableHeadData
           text={'상품 등록일'}
           searchQuery={searchQuery}
           handleOrderAndSortGoods={handleOrderAndSortGoods}
-          order={'createdAt'}
+          flag={'create'}
         />
-        <GoodsTableHeadData
-          text={'최종 수정일'}
-          handleOrderAndSortGoods={handleOrderAndSortGoods}
-          order={'updatedAt'}
-        />
+        <GoodsTableHeadData text={'최종 수정일'} handleOrderAndSortGoods={handleOrderAndSortGoods} flag={'update'} />
         <GoodsTableHeadData text={'상태'} handleOrderAndSortGoods={handleOrderAndSortGoods} />
         <GoodsTableHeadData text={'카테고리'} handleOrderAndSortGoods={handleOrderAndSortGoods} />
       </TableRow>
