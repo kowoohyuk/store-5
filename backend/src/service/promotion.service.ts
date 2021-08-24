@@ -15,15 +15,18 @@ async function createPromotion(body: CreatePromotionBody, imgUrl: string): Promi
   return {
     id: newPromotion.id,
     imgUrl: newPromotion.imgUrl,
+    view: newPromotion.view,
   };
 }
 
 async function getPromotions(): Promise<PromotionResponse[]> {
   const promotions = await PromotionRepository.getPromotions();
-
-  return promotions.map((p) => ({
-    id: p.id,
-    imgUrl: p.imgUrl,
+  return promotions.map(({ id, imgUrl, view, goods }) => ({
+    id,
+    imgUrl,
+    view,
+    goodsId: goods.id,
+    title: goods.title,
   }));
 }
 

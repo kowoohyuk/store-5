@@ -20,7 +20,7 @@ async function createPromotion(goodsId: number, imgUrl: string): Promise<Promoti
 async function getPromotions(): Promise<Promotion[]> {
   try {
     const promotionRepo = getRepository(Promotion);
-    return await promotionRepo.find({ order: { createdAt: 'DESC' } });
+    return await promotionRepo.find({ order: { createdAt: 'DESC' }, relations: ['goods'] });
   } catch (err) {
     console.error(err);
     throw new DatabaseError(PROMOTION_DB_ERROR);
