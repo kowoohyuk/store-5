@@ -1,5 +1,5 @@
 import { APIResponse, checkedFetch } from '@src/apis/base';
-import { Promotion, PromotionChartData } from '@src/types/Promotion';
+import { Promotion } from '@src/types/Promotion';
 
 const createPromotion = async (formData: FormData): Promise<APIResponse<Promotion>> => {
   const res = await checkedFetch(`/api/promotion`, {
@@ -10,15 +10,7 @@ const createPromotion = async (formData: FormData): Promise<APIResponse<Promotio
   return res.json();
 };
 
-const getPromotions = async (): Promise<APIResponse<Promotion[]>> => {
-  const res = await checkedFetch(`/api/promotion`, {
-    method: 'GET',
-    credentials: 'include',
-  });
-  return res.json();
-};
-
-const getPromotionChartData = async (): Promise<APIResponse<PromotionChartData[]>> => {
+const getPromotionsForAdmin = async (): Promise<APIResponse<Promotion[]>> => {
   const res = await checkedFetch(`/api/promotion/chart`, {
     method: 'GET',
     credentials: 'include',
@@ -37,8 +29,7 @@ const deletePromotion = async (promotionId: number): Promise<boolean> => {
 
 const PromotionAPI = {
   createPromotion,
-  getPromotions,
-  getPromotionChartData,
+  getPromotionsForAdmin,
   deletePromotion,
 };
 

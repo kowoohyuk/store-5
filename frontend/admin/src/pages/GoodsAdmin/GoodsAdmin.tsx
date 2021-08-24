@@ -31,7 +31,6 @@ const GoodsAdminContainer = styled('div')`
 
 const GoodsAdminHeader = styled('div')`
   display: flex;
-  align-items: center;
   column-gap: 3rem;
   margin-bottom: 20px;
 `;

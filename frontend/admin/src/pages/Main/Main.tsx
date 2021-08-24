@@ -31,7 +31,7 @@ const MainContainer = styled('div')`
   display: flex;
   width: 100%;
   min-width: 1280px;
-  padding: 32px;
+  padding: 5rem;
   background-color: #eee;
 `;
 
