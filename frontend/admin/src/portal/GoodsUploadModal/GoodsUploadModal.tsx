@@ -44,7 +44,9 @@ const GoodsUploadModal: React.FC<Props> = ({ onClose, goods }) => {
     formData.append('state', convertGoodsState(productState));
     if (oldImages.length > 0) {
       formData.append('oldImages', oldImages.map((image) => image.id).join());
+      formData.append('thumbnailUrl', oldImages[0].url);
     }
+
     try {
       const { result } = goods ? await GoodsAPI.updateGoods(formData, goods.id) : await GoodsAPI.createGoods(formData);
       if (result) onClose();

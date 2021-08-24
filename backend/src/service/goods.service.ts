@@ -51,7 +51,7 @@ async function createGoods(body: CreateGoodsBody, uploadFileUrls: string[]): Pro
   if (
     !title ||
     isGreen === undefined ||
-    isNaN(body.stock) ||
+    isNumber(body.stock) ||
     !state ||
     isNaN(body.price) ||
     isNaN(body.category) ||
@@ -89,16 +89,17 @@ async function createGoods(body: CreateGoodsBody, uploadFileUrls: string[]): Pro
 
 async function updateGoods(body: UpdateGoodsBody, goodsId: number, uploadFileUrls: string[]): Promise<Goods> {
   await checkValidateCreateGoods(body);
-  const { title, category, isGreen, price, stock, state, discountRate, deliveryInfo, oldImages } = body;
+  const { title, category, isGreen, price, stock, state, discountRate, deliveryInfo, thumbnailUrl, oldImages } = body;
 
   if (
-    !title ||
+    !isString(title) ||
     isGreen === undefined ||
-    isNaN(body.stock) ||
-    !state ||
-    isNaN(body.price) ||
-    isNaN(body.category) ||
-    isNaN(body.deliveryInfo)
+    !isNumber(stock) ||
+    !isString(state) ||
+    !isNumber(price) ||
+    !isNumber(category) ||
+    !isNumber(deliveryInfo) ||
+    (thumbnailUrl && !isString(thumbnailUrl))
   ) {
     throw new BadRequestError(INVALID_DATA);
   }
@@ -118,7 +119,7 @@ async function updateGoods(body: UpdateGoodsBody, goodsId: number, uploadFileUrl
       deliveryInfo: {
         id: deliveryInfo,
       },
-      thumbnailUrl: oldImages ? oldImages[0] : uploadFileUrls[0],
+      thumbnailUrl: oldImages?.length ? thumbnailUrl : uploadFileUrls[0],
     });
 
     if (oldImages) {

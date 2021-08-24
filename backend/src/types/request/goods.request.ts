@@ -12,6 +12,7 @@ export interface CreateGoodsBody {
 
 export type UpdateGoodsBody = CreateGoodsBody & {
   oldImages?: string;
+  thumbnailUrl?: string;
 };
 
 export interface CreateGoodsRequest extends Request {
