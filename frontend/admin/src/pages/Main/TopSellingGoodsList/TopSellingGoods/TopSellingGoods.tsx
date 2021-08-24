@@ -1,3 +1,4 @@
+import originStyled from 'styled-components';
 import { styled } from '@src/lib/CustomStyledComponent';
 import { theme } from '@src/theme/theme';
 import convertCountOfSell from '@src/utils/convertCountOfSell';
@@ -17,33 +18,46 @@ const TopSellingGoods: React.FC<Props> = ({ item, rank }) => {
     <TopSellingGoodsContainer>
       <TopSellingGoodsImage src={item.thumbnailUrl} />
       <TopSellingGoodsTitle>{item.title}</TopSellingGoodsTitle>
-      <SellingGoodsCountContainer bgcolor={theme.greenColor}>
-        <TopSellingGoodsCount> {convertCountOfSell(item.countOfSell)}</TopSellingGoodsCount>
+      <SellingGoodsCountContainer>
+        <TopSellingGoodsCount color={theme.greenColor}> {convertCountOfSell(item.countOfSell)}</TopSellingGoodsCount>개
       </SellingGoodsCountContainer>
       <TopSellingRank bgcolor={theme.greenColor}>{rank + 1}</TopSellingRank>
     </TopSellingGoodsContainer>
   );
 };
 
-const TopSellingGoodsContainer = styled('div')`
+const TopSellingGoodsContainer = originStyled.div`
   position: relative;
   display: flex;
   align-items: center;
-  height: 15%;
   width: 100%;
-  margin-bottom: 16px;
+  justify-content: space-between;
+  cursor:pointer;
+  &:after {
+    transition: transform 0.15s linear;
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid ${theme.black6};
+    transform: scale(0);
+  }
+  &:hover:after {
+    transform: scale(1);
+  }
 `;
 const TopSellingGoodsImage = styled('img')`
-  width: 64px;
-  height: 64px;
-  margin-right: 16px;
+  width: 40px;
+  height: 40px;
+  max-height: 100%;
   object-fit: cover;
   border-radius: 2px;
 `;
 
 const TopSellingGoodsTitle = styled('p')`
-  width: 60%;
-
+  width: 70%;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -53,20 +67,21 @@ const TopSellingGoodsTitle = styled('p')`
   font-size: 14px;
 `;
 
-const SellingGoodsCountContainer = styled('div')<{ bgcolor: string }>`
-  padding: 0.5em;
-  background-color: ${(props) => props.bgcolor};
-  border-radius: 12px;
+const SellingGoodsCountContainer = styled('div')`
+  font-size: 12px;
 `;
 
-const TopSellingGoodsCount = styled('span')`
-  color: #fff;
+const TopSellingGoodsCount = styled('span')<{ color: string }>`
+  font-weight: 600;
+  font-size: 16px;
+  padding-right: 4px;
+  color: ${(props) => props.color};
 `;
 
 const TopSellingRank = styled('div')<{ bgcolor: string }>`
   position: absolute;
-  top: -5px;
-  left: -5px;
+  top: 0px;
+  left: -10px;
   background-color: ${(props) => props.bgcolor};
   color: #fff;
   display: flex;

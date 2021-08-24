@@ -47,9 +47,10 @@ const TopSellingTitleContainer = styled('div')`
 `;
 const GoodsListContainer = styled('div')`
   position: relative;
-  display: flex;
+  display: grid;
   flex-direction: column;
   height: 100%;
+  row-gap: 1rem;
 `;
 
 const TopSellingTitle = styled('span')<{ bgcolor: string }>`
