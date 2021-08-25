@@ -50,7 +50,12 @@ const GoodsTableHead: React.FC<Props> = ({ handleOrderAndSortGoods, searchQuery 
           handleOrderAndSortGoods={handleOrderAndSortGoods}
           flag={'create'}
         />
-        <GoodsTableHeadData text={'최종 수정일'} handleOrderAndSortGoods={handleOrderAndSortGoods} flag={'update'} />
+        <GoodsTableHeadData
+          text={'최종 수정일'}
+          searchQuery={searchQuery}
+          handleOrderAndSortGoods={handleOrderAndSortGoods}
+          flag={'update'}
+        />
         <GoodsTableHeadData text={'상태'} handleOrderAndSortGoods={handleOrderAndSortGoods} />
         <GoodsTableHeadData text={'카테고리'} handleOrderAndSortGoods={handleOrderAndSortGoods} />
       </TableRow>

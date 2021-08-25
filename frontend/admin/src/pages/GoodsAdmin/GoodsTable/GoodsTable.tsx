@@ -43,13 +43,12 @@ const GoodsTable: React.FC<Props> = ({ openUploadModal }) => {
   };
 
   const setKeyword = (keyword: string) => {
-    setSearchQuery({
+    setSearchQuery((searchQuery) => ({
       ...searchQuery,
       keyword,
-    });
+    }));
   };
 
-  // Q: 굳이 페이지를 1로 초기화할 필요는 없는듯?
   const handleOrderAndSortGoods = (flag: string, sort: 'ASC' | 'DESC') => {
     setSearchQuery({
       ...searchQuery,
@@ -63,7 +62,6 @@ const GoodsTable: React.FC<Props> = ({ openUploadModal }) => {
   }, []);
 
   useEffect(() => {
-    console.log(searchQuery);
     fetchGoodsList();
   }, [searchQuery, updateGoods]);
 

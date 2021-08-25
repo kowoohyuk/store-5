@@ -27,27 +27,12 @@ const TopSellingGoods: React.FC<Props> = ({ item, rank }) => {
   );
 };
 
-const TopSellingGoodsContainer = originStyled.div`
+const TopSellingGoodsContainer = styled('div')`
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  cursor:pointer;
-  &:after {
-    transition: transform 0.15s linear;
-    position: absolute;
-    content: '';
-    width: 100%;
-    height: 1px;
-    bottom: 0;
-    left: 0;
-    border-bottom: 1px solid ${theme.black6};
-    transform: scale(0);
-  }
-  &:hover:after {
-    transform: scale(1);
-  }
 `;
 const TopSellingGoodsImage = styled('img')`
   width: 40px;
