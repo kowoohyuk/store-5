@@ -14,8 +14,8 @@ interface Props {
 }
 const DEFAULT_PAGE_RANGE = 5;
 const Paginator: React.FC<Props> = ({ totalPage, currentPage, rangeOfPage = DEFAULT_PAGE_RANGE, setPage }) => {
-  const startPage = Math.floor(currentPage / rangeOfPage) * rangeOfPage + 1;
-  const endPage = startPage + rangeOfPage < totalPage ? startPage + rangeOfPage - 1 : totalPage;
+  const startPage = Math.floor((currentPage - 1) / rangeOfPage) * rangeOfPage + 1;
+  const endPage = Math.min(startPage + rangeOfPage - 1, totalPage);
 
   const pages = range(startPage, endPage);
 
