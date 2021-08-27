@@ -3,7 +3,7 @@ import { WISH_DB_ERROR } from '../constants/database.error.name';
 import { Wish } from '../entity/Wish';
 import { DatabaseError } from '../errors/base.error';
 
-async function findWishByIds(userId: number, goodsId: number): Promise<Wish | undefined> {
+async function getWishByIds(userId: number, goodsId: number): Promise<Wish | undefined> {
   try {
     const wishRepo = getRepository(Wish);
     return await wishRepo.findOne({ where: { userId, goodsId } });
@@ -33,7 +33,7 @@ async function deleteWish(userId: number, goodsId: number): Promise<DeleteResult
   }
 }
 
-async function findWishByUserId(userId: number): Promise<number[]> {
+async function getWishByUserId(userId: number): Promise<number[]> {
   try {
     const result = await getRepository(Wish)
       .createQueryBuilder('wish')
@@ -48,7 +48,7 @@ async function findWishByUserId(userId: number): Promise<number[]> {
   }
 }
 
-async function findWishCountByGoodsIdAndUserId(goodsId: number, userId: number): Promise<number> {
+async function getWishCountByGoodsIdAndUserId(goodsId: number, userId: number): Promise<number> {
   try {
     const result = await getRepository(Wish)
       .createQueryBuilder('wish')
@@ -63,7 +63,7 @@ async function findWishCountByGoodsIdAndUserId(goodsId: number, userId: number):
   }
 }
 
-async function findWishCountByUserId(userId: number): Promise<number> {
+async function getWishCountByUserId(userId: number): Promise<number> {
   try {
     const result = await getRepository(Wish)
       .createQueryBuilder('wish')
@@ -78,10 +78,10 @@ async function findWishCountByUserId(userId: number): Promise<number> {
 }
 
 export const WishRepository = {
-  findWishByUserId,
-  findWishByIds,
-  findWishCountByUserId,
-  findWishCountByGoodsIdAndUserId,
+  getWishByUserId,
+  getWishByIds,
+  getWishCountByUserId,
+  getWishCountByGoodsIdAndUserId,
   createWish,
   deleteWish,
 };

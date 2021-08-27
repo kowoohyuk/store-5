@@ -8,7 +8,7 @@ import { SearchedGoodsFromKeyword } from '../types/response/search.response';
 
 const AUTO_SEARCH_GOODS_NUMBER = 10;
 
-async function findGoodsById(goodsId: number): Promise<Goods | undefined> {
+async function getGoodsById(goodsId: number): Promise<Goods | undefined> {
   try {
     return await getRepository(Goods).findOne({ where: { id: goodsId } });
   } catch (error) {
@@ -17,7 +17,7 @@ async function findGoodsById(goodsId: number): Promise<Goods | undefined> {
   }
 }
 
-async function findGoodsDetailById(goodsId: number): Promise<Goods | undefined> {
+async function getGoodsDetailById(goodsId: number): Promise<Goods | undefined> {
   try {
     return await getRepository(Goods).findOne({
       relations: ['category', 'deliveryInfo', 'goodsImgs'],
@@ -31,7 +31,7 @@ async function findGoodsDetailById(goodsId: number): Promise<Goods | undefined> 
   }
 }
 
-async function findAllWithCategory(): Promise<Goods[]> {
+async function getAllWithCategory(): Promise<Goods[]> {
   try {
     return await getRepository(Goods).find({
       relations: ['category'],
@@ -42,7 +42,7 @@ async function findAllWithCategory(): Promise<Goods[]> {
   }
 }
 
-async function findAllByOption({
+async function getAllByOption({
   offset,
   limit,
   stock = 0,
@@ -86,7 +86,7 @@ async function findAllByOption({
   }
 }
 
-async function findAllWishByUserId({ offset, limit, userId }: FindAllProps): Promise<TaggedGoodsType[]> {
+async function getAllWishByUserId({ offset, limit, userId }: FindAllProps): Promise<TaggedGoodsType[]> {
   try {
     return await getRepository(Goods)
       .createQueryBuilder('goods')
@@ -102,7 +102,7 @@ async function findAllWishByUserId({ offset, limit, userId }: FindAllProps): Pro
   }
 }
 
-async function findTotalCountByOption({ stock, state, title, category }: FindTotalCountProps): Promise<number> {
+async function getTotalCountByOption({ stock, state, title, category }: FindTotalCountProps): Promise<number> {
   try {
     const where: {
       stock: FindOperator<number>;
@@ -130,7 +130,7 @@ async function findTotalCountByOption({ stock, state, title, category }: FindTot
   }
 }
 
-async function findSellCountAverage(): Promise<number> {
+async function getSellCountAverage(): Promise<number> {
   try {
     const result = await getRepository(Goods)
       .createQueryBuilder('goods')
@@ -158,7 +158,7 @@ async function searchGoodsFromKeyword(keyword: string): Promise<SearchedGoodsFro
   }
 }
 
-async function findStockById(goodsId: number): Promise<number> {
+async function getStockById(goodsId: number): Promise<number> {
   try {
     const goodsRepo = getRepository(Goods);
     const goods = await goodsRepo.findOne({
@@ -172,7 +172,7 @@ async function findStockById(goodsId: number): Promise<number> {
   }
 }
 
-async function findBestSellingGoods(limit: number): Promise<Goods[]> {
+async function getBestSellingGoods(limit: number): Promise<Goods[]> {
   try {
     return getRepository(Goods).find({
       order: {
@@ -199,7 +199,7 @@ async function decrementStock(id: number, amount: number) {
   return await getRepository(Goods).decrement({ id }, 'stock', amount);
 }
 
-async function findRandomGoods(goodsId: number, category: number, limit: number): Promise<TaggedGoodsType[]> {
+async function getRandomGoods(goodsId: number, category: number, limit: number): Promise<TaggedGoodsType[]> {
   try {
     return await getRepository(Goods)
       .createQueryBuilder('goods')
@@ -216,17 +216,17 @@ async function findRandomGoods(goodsId: number, category: number, limit: number)
 }
 
 export const GoodsRepository = {
-  findGoodsById,
-  findGoodsDetailById,
-  findAllWithCategory,
-  findAllByOption,
-  findAllWishByUserId,
-  findTotalCountByOption,
-  findSellCountAverage,
-  findStockById,
-  findBestSellingGoods,
+  getGoodsById,
+  getGoodsDetailById,
+  getAllWithCategory,
+  getAllByOption,
+  getAllWishByUserId,
+  getTotalCountByOption,
+  getSellCountAverage,
+  getStockById,
+  getBestSellingGoods,
   searchGoodsFromKeyword,
   increaseGoodsViewById,
   decrementStock,
-  findRandomGoods,
+  getRandomGoods,
 };

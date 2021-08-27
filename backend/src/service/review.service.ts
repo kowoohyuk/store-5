@@ -87,7 +87,7 @@ async function checkValidateCreateReview(body: CreateReviewBody): Promise<void> 
   const { goodsId, contents, rate } = body;
   if (!isNumber(goodsId) || !isString(contents) || !isNumber(rate)) throw new BadRequestError(INVALID_DATA);
   if (rate < MIN_RATE || rate > MAX_RATE || contents.length < 1) throw new BadRequestError(INVALID_DATA);
-  const goods = await GoodsRepository.findGoodsById(goodsId);
+  const goods = await GoodsRepository.getGoodsById(goodsId);
   if (!goods) throw new BadRequestError(INVALID_DATA);
 }
 

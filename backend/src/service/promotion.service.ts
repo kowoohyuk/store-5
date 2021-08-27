@@ -41,7 +41,7 @@ async function increasePromotionView(promotionId: number): Promise<UpdateResult>
 
 async function checkValidateCreatePromotion(body: CreatePromotionBody, imgUrl: string): Promise<void> {
   const { goodsId } = body;
-  const foundGoods = await GoodsRepository.findGoodsById(goodsId);
+  const foundGoods = await GoodsRepository.getGoodsById(goodsId);
   if (!foundGoods) throw new BadRequestError(PROMOTION_GOODS_ERROR);
   if (!imgUrl) throw new BadRequestError(PROMOTION_PARAMETER_ERROR);
 }

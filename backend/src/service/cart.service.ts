@@ -22,7 +22,7 @@ async function getAllCartByUserId(userId: number): Promise<CartsResponse> {
 
 async function createCart(userId: number, goodsId: number, body: CartBody): Promise<CartResponse> {
   // goods가 존재하는지 체크한다.
-  const goods = await GoodsRepository.findGoodsDetailById(goodsId);
+  const goods = await GoodsRepository.getGoodsDetailById(goodsId);
   if (!goods) throw new NotFoundError(INVALID_ACCESS);
 
   // 기존 cart가 존재한다면 기존 것을 지운다.
@@ -39,7 +39,7 @@ async function updateCart(userId: number, cartId: number, body: CartBody): Promi
 
   // cart의 amount를 goods의 재고 범위 안에 놓는다.
   const cart = (await CartRepository.getCartByUserIdAndCartId(userId, cartId)) as Cart;
-  const goods = (await GoodsRepository.findGoodsDetailById(cart.goods.id)) as Goods;
+  const goods = (await GoodsRepository.getGoodsDetailById(cart.goods.id)) as Goods;
 
   let { amount } = body;
   if (amount < 1) {

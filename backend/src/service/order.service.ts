@@ -104,7 +104,7 @@ async function createOrderItem(
   orderedItem: OrderGoods,
   orderId: number
 ): Promise<void> {
-  const goods = await GoodsRepository.findGoodsDetailById(orderedItem.id);
+  const goods = await GoodsRepository.getGoodsDetailById(orderedItem.id);
   if (!goods) throw new BadRequestError(INVALID_DATA + `(id:${orderId}는 존재하지않는 상품입니다.)`);
 
   const { price, discountRate, state } = goods;
