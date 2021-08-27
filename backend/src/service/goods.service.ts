@@ -28,16 +28,6 @@ export const GoodsStateMap: {
   destroy: 'D',
 };
 
-// 'best' = 인기, 'low' = 낮은 가격, 'high' = 높은 가격, 'latest' = 최신순
-const GoodsFlag: {
-  [keyword: string]: keyof Goods;
-} = {
-  best: 'countOfSell',
-  low: 'price',
-  high: 'price',
-  latest: 'createdAt',
-};
-
 const INVALID_DISCOUNT_RATE = '할인율은 0~99% 범위 내에서 가능합니다.';
 const INVALID_DELIVERY_INFO = '해당 배송 정보는 없는 정보입니다.';
 const INVALID_CATEGORY = '유효한 카테고리가 존재하지 않습니다.';
@@ -256,7 +246,6 @@ async function getGoodsByOption(
   };
 }
 
-// TODO: 각 조회를 하나의 함수로 분리?
 async function getMainGoodsListMap(userId?: number): Promise<{
   bestGoodsList: TaggedGoodsType[];
   latestGoodsList: TaggedGoodsType[];
